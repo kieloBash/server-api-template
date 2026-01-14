@@ -1,6 +1,5 @@
 datasource db {
   provider = "postgresql"
-  schemas  = "financial"
 }
 
 generator client {
@@ -13,6 +12,4 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-
-  @@schema("financial")
 }

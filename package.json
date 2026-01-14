@@ -8,16 +8,29 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+
+    "start": "NODE_ENV=production node dist/main.js",
+    "start:dev": "NODE_ENV=development nest start --watch",
+    "start:debug": "NODE_ENV=development nest start --debug --watch",
+    "start:prod": "NODE_ENV=production node dist/main.js",
+
+    "dev": "NODE_ENV=development nest start --watch",
+    "prod": "NODE_ENV=production nest start --watch",
+
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+
+    "prisma:generate:local": "dotenv -e .env.local -- prisma generate",
+    "prisma:push:local": "dotenv -e .env.local -- prisma db push",
+    "prisma:studio:local": "dotenv -e .env.local -- prisma studio",
+
+    "prisma:generate:prod": "dotenv -e .env.production -- prisma generate",
+    "prisma:push:prod": "dotenv -e .env.production -- prisma db push",
+    "prisma:studio:prod": "dotenv -e .env.production -- prisma studio"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -40,6 +53,7 @@
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
     "dotenv": "^17.2.3",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",

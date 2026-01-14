@@ -79,16 +79,24 @@ $ docker compose up
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### On Render
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+1. Create a Supabase Database
+2. Click 'connect' and get the DATABASE_URL and DIRECT_URL
+3. Configure the environment variables as needed in the .env.example
+4. Select Docker and Leave Build Command and Start Command empty
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+NODE_ENV=production
+DATABASE_URL=postgresql://postgres:<PASSWORD>@aws-1-<region>.pooler.supabase.com:6543/postgres?pgbouncer=true
+DIRECT_URL=postgresql://postgres.<PASSWORD>:@aws-1-<region>pooler.supabase.com:5432/postgres
+NODE_ENV=production
+CONTEXT_PATH="/api/v1"
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+5. (optional) for first time prisma setup
+ - open Render Shell
+ - run `npx prisma generate` and `npx prisma db push`
 
 ## Resources
 

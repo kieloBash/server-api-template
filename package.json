@@ -24,9 +24,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
 
-    "prisma:generate:local": "dotenv -e .env.local -- prisma generate",
-    "prisma:push:local": "dotenv -e .env.local -- prisma db push",
-    "prisma:studio:local": "dotenv -e .env.local -- prisma studio",
+    "prisma:generate:dev": "dotenv -e .env.development-- prisma generate",
+    "prisma:push:dev": "dotenv -e .env.development-- prisma db push",
+    "prisma:studio:dev": "dotenv -e .env.development-- prisma studio",
 
     "prisma:generate:prod": "dotenv -e .env.production -- prisma generate",
     "prisma:push:prod": "dotenv -e .env.production -- prisma db push",

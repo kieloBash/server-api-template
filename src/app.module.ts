@@ -11,7 +11,7 @@ import { DatabaseService } from './lib/db.service';
       envFilePath:
         process.env.NODE_ENV === 'production'
           ? '.env.production'
-          : '.env.local',
+          : '.env.development',
     }),
   ],
   controllers: [AppController],

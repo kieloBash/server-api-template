@@ -75,6 +75,8 @@ $ docker compose down -v
 # Start 
 $ docker compose up
 
+# Query
+$ docker compose exec api sh
 ```
 
 ## Deployment

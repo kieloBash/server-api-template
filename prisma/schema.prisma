@@ -13,9 +13,13 @@ model User {
   email    String  @unique
   name     String?
   password String?
+  profile  String?
 
   roleId String
   role   Role   @relation("UserRoles", fields: [roleId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Role {

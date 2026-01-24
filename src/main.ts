@@ -1,6 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { JwtGuard } from './auth/jwt.guard';
 import { HttpExceptionFilter } from './common/filters';
 import { TransformInterceptor } from './common/interceptors';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
@@ -23,6 +24,12 @@ async function bootstrap() {
   app.useGlobalInterceptors(
     new LoggingInterceptor(),
     new TransformInterceptor(),
+  );
+
+  const reflector = app.get('Reflector');
+  const jwtGuard = new JwtGuard(reflector);
+  app.useGlobalGuards(
+    jwtGuard,
   );
 
   await app.listen(PORT, '0.0.0.0');

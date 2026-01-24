@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { JwtGuard } from './auth/jwt.guard';
+import { RolesGuard } from './auth/roles.guard';
 import { HttpExceptionFilter } from './common/filters';
 import { TransformInterceptor } from './common/interceptors';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
@@ -28,8 +29,10 @@ async function bootstrap() {
 
   const reflector = app.get('Reflector');
   const jwtGuard = new JwtGuard(reflector);
+  const roleGuard = new RolesGuard(reflector);
   app.useGlobalGuards(
     jwtGuard,
+    roleGuard
   );
 
   await app.listen(PORT, '0.0.0.0');

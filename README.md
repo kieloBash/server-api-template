@@ -31,10 +31,23 @@
 $ npm install
 ```
 
-## Running project
+## Running project locally
 ```bash
 # Run both server and db in docker
 $ npm run docker:dev
+```
+
+## Running project in prod
+```bash
+# Run and connect to supabase
+# Reset the database
+$ npm run prisma:reset:prod
+
+# Push the database 
+$ npm run prisma:push:prod
+
+# Apply the seed
+$ npm run prisma:seed:prod
 ```
 
 ## Compile and run the project

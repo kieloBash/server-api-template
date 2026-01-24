@@ -26,6 +26,8 @@
     "prisma:generate:prod": "dotenv -e .env.production -- prisma generate",
     "prisma:push:prod": "dotenv -e .env.production -- prisma db push",
     "prisma:studio:prod": "dotenv -e .env.production -- prisma studio",
+    "prisma:reset:prod": "dotenv -e .env.production -- prisma migrate reset",
+    "prisma:seed:prod": "dotenv -e .env.production -- prisma db seed",
     "docker:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up",
     "docker:dev:build": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build",
     "docker:build": "docker compose up --build",

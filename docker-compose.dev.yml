@@ -4,9 +4,11 @@ services:
   api:
     build: .
     container_name: api
-    command: node dist/src/main.js
+    working_dir: /app
+    command: npm run start:dev
     volumes:
       - ./:/app
+      - /app/node_modules
     env_file:
       - .env
     environment:

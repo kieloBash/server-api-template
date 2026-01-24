@@ -31,6 +31,12 @@
 $ npm install
 ```
 
+## Running project
+```bash
+# Run both server and db in docker
+$ npm run docker:dev
+```
+
 ## Compile and run the project
 
 ```bash

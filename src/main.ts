@@ -5,6 +5,7 @@ import { JwtGuard } from './auth/jwt.guard';
 import { RolesGuard } from './auth/roles.guard';
 import { HttpExceptionFilter } from './common/filters';
 import { TransformInterceptor } from './common/interceptors';
+import { ValidationPipe } from './common/pipes/validation.pipe';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 async function bootstrap() {
@@ -20,6 +21,7 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
+  app.useGlobalPipes(new ValidationPipe())
   app.useGlobalFilters(new HttpExceptionFilter());
   app.setGlobalPrefix(contextPath);
   app.useGlobalInterceptors(

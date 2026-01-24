@@ -1,10 +1,11 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/jwt.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { JwtPayload } from 'src/common/decorators/jwt-payload.decorator';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { type IJwtPayload } from 'src/common/interfaces';
 import { UsersService } from './users.service';
+import { GetUsersQueryDto } from './dto/get-users-query.dto';
 
 @Controller('users')
 export class UsersController {
@@ -15,8 +16,8 @@ export class UsersController {
     @UseGuards(JwtGuard, RolesGuard)
     @Roles('ADMIN')
     @Get()
-    getUsers() {
-        return this.usersService.getUsers();
+    getUsers(@Query() query: GetUsersQueryDto) {
+        return this.usersService.getUsers(query);
     }
 
     @UseGuards(JwtGuard)

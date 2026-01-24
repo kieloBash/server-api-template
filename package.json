@@ -33,7 +33,6 @@
     "docker:build": "docker compose up --build",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f api",
-
     "db:dev": "dotenv -e .env -- prisma generate && dotenv -e .env -- prisma migrate reset && dotenv -e .env -- prisma db push && dotenv -e .env -- prisma db seed",
     "db:prod": "dotenv -e .env.production -- prisma generate && dotenv -e .env.production -- prisma migrate reset && dotenv -e .env.production -- prisma db push && dotenv -e .env.production -- prisma db seed"
   },
@@ -47,6 +46,8 @@
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.3.0",
     "bcrypt": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.3",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",

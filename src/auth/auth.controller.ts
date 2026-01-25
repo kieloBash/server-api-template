@@ -12,4 +12,9 @@ export class AuthController {
         const user = await this.authService.validateUser(body.email, body.password);
         return this.authService.login(user);
     }
+
+    @Post('google')
+    async googleLogin(@Body('idToken') idToken: string) {
+        return this.authService.googleLogin(idToken);
+    }
 }

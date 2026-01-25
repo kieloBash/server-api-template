@@ -3,7 +3,7 @@ version: "3.9"
 services:
   api:
     build: .
-    container_name: api
+    container_name: ${PROJECT_NAME}_api
     working_dir: /app
     command: npm run start:dev
     volumes:
@@ -24,7 +24,7 @@ services:
 
   db:
     image: postgres:16-alpine
-    container_name: db
+    container_name: ${PROJECT_NAME}_db
     restart: always
     env_file:
       - .env

@@ -28,12 +28,16 @@
 ## Project setup
 
 ```bash
+# Configure .env
 $ npm install
+$ npm run docker:build
+$ npm run db:dev
 ```
 
 ## Running project locally
 ```bash
 # Run both server and db in docker
+$ npm run docker:build
 $ npm run docker:dev
 ```
 

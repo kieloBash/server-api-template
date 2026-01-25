@@ -119,11 +119,13 @@ $ docker compose exec api sh
 4. Select Docker and Leave Build Command and Start Command empty
 
 ```bash
-NODE_ENV=production
+CONTEXT_PATH="/api/v1"
 DATABASE_URL=postgresql://postgres:<PASSWORD>@aws-1-<region>.pooler.supabase.com:6543/postgres?pgbouncer=true
 DIRECT_URL=postgresql://postgres.<PASSWORD>:@aws-1-<region>pooler.supabase.com:5432/postgres
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+JWT_SECRET=your_jwt_secret
 NODE_ENV=production
-CONTEXT_PATH="/api/v1"
 ```
 
 5. (optional) for first time prisma setup

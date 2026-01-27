@@ -13,8 +13,18 @@ export class AuthController {
         return this.authService.login(user);
     }
 
+    @Post('register')
+    async register(@Body() body: { email: string; password: string }) {
+        return await this.authService.register(body);
+    }
+
     @Post('google')
     async googleLogin(@Body('idToken') idToken: string) {
         return this.authService.googleLogin(idToken);
+    }
+
+    @Post('verify-otp')
+    async verifyOtp(@Body() body: { email: string; token: string }) {
+        return this.authService.verifyEmailOtp(body.email, body.token);
     }
 }

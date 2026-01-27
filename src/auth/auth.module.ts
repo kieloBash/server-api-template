@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { DatabaseService } from 'src/lib/db.service';
+import { MailModule } from 'src/mail/mail.module';
+import { OtpTokensModule } from 'src/otp-tokens/otp-tokens.module';
 import { JwtStrategy } from 'src/strategy/jwt.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -14,6 +16,8 @@ import { GoogleAuthService } from './google-auth.service';
             secret: process.env.JWT_SECRET || 'supersecret',
             signOptions: { expiresIn: '7d' },
         }),
+        OtpTokensModule,
+        MailModule
     ],
     providers: [AuthService, DatabaseService, JwtStrategy, GoogleAuthService],
     controllers: [AuthController],

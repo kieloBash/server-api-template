@@ -32,6 +32,7 @@ async function main() {
             email: 'admin@gmail.com',
             name: 'Admin User',
             password: hashedPassword,
+            verifiedAt: new Date(),
             role: {
                 connect: { id: adminRole.id },
             },

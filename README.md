@@ -111,6 +111,37 @@ $ docker compose exec api sh
 
 ## Deployment
 
+### Email (Send Grid)
+1. Setup a free account in twilio send grid.
+2. Go and create a sender account and verify them. [Sender Account](https://app.sendgrid.com/settings/sender_auth/senders)
+3. Now, create an api key and save it under `SENDGRID_API_KEY`, `SENDGRID_API_KEY_ID`, `SENDGRID_FROM_EMAIL`. [API Keys](https://app.sendgrid.com/settings/api_keys)
+
+### Creating Google Authentication
+1. Go to google console [Google Console](https://console.cloud.google.com/)
+2. Create a project if you haven't. [New Project](https://console.cloud.google.com/projectcreate?previousPage=%2Fwelcome%3F_gl%3D1*1amjhlo*_up*MQ..%26gclid%3DCj0KCQiA-NHLBhDSARIsAIhe9X3YoMVBVKXgjV5z600GxnbSXeMKkSGgfFJrpWg5bdSA9KYsiDuc0WgaAq6WEALw_wcB%26gclsrc%3Daw.ds%26project%3Dinfra-bedrock-384800&organizationId=0)
+3. Go to `APIs & Services` [API & Services](https://console.cloud.google.com/apis/dashboard)
+4. Go to Credentials and setup an `OAuth client ID` [Credentials](https://console.cloud.google.com/apis/credentials). 
+```bash
+# Application type
+Web application
+
+# Authorized JavaScript origins
+http://localhost:3000
+http://localhost:8080
+
+# Authorized redirect URIs
+http://localhost:3000/auth/callback
+https://developers.google.com/oauthplayground
+```
+5. Configure consent screen and project configurations. Add `External` and add all the test email users that can access the app.
+6. Save the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
+
+### Testing in Google Authentication
+1. Go to [OAuth Playground](https://developers.google.com/oauthplayground)
+2. Configure to YOUR client id, click on the Settings Icon and select `Use your own OAuth credentials`
+3. Select `Google OAuth2 API v2` and check all the details
+4. Proceed to Step2 and click on `Exchange authorization code for tokens`
+
 ### On Render
 
 1. Create a Supabase Database
@@ -137,28 +168,3 @@ NODE_ENV=production
 - Author - [Kielo Bash Mercado](https://github.com/kieloBash)
 - Website - [https://server-api-template.onrender.com/api/v1](https://server-api-template.onrender.com/api/v1)
 
-## Creating Google Authentication
-1. Go to google console [Google Console](https://console.cloud.google.com/)
-2. Create a project if you haven't. [New Project](https://console.cloud.google.com/projectcreate?previousPage=%2Fwelcome%3F_gl%3D1*1amjhlo*_up*MQ..%26gclid%3DCj0KCQiA-NHLBhDSARIsAIhe9X3YoMVBVKXgjV5z600GxnbSXeMKkSGgfFJrpWg5bdSA9KYsiDuc0WgaAq6WEALw_wcB%26gclsrc%3Daw.ds%26project%3Dinfra-bedrock-384800&organizationId=0)
-3. Go to `APIs & Services` [API & Services](https://console.cloud.google.com/apis/dashboard)
-4. Go to Credentials and setup an `OAuth client ID` [Credentials](https://console.cloud.google.com/apis/credentials). 
-```bash
-# Application type
-Web application
-
-# Authorized JavaScript origins
-http://localhost:3000
-http://localhost:8080
-
-# Authorized redirect URIs
-http://localhost:3000/auth/callback
-https://developers.google.com/oauthplayground
-```
-5. Configure consent screen and project configurations. Add `External` and add all the test email users that can access the app.
-6. Save the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
-
-## Testing in Google Authentication
-1. Go to [OAuth Playground](https://developers.google.com/oauthplayground)
-2. Configure to YOUR client id, click on the Settings Icon and select `Use your own OAuth credentials`
-3. Select `Google OAuth2 API v2` and check all the details
-4. Proceed to Step2 and click on `Exchange authorization code for tokens`

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { randomInt } from 'crypto';
 import { DatabaseService } from 'src/lib/db.service';
+import { generateRandomToken } from 'src/utils/token';
 
 @Injectable()
 export class OtpTokensService {
@@ -10,7 +11,7 @@ export class OtpTokensService {
     ) { }
 
     async createOtpToken(email: string) {
-        const token = randomInt(100000, 1000000).toString();
+        const token = generateRandomToken();
 
         return this.db.otpToken.create({
             data: {

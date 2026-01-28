@@ -6,6 +6,7 @@ import { MailService } from 'src/mail/mail.service';
 import { OtpTokensService } from 'src/otp-tokens/otp-tokens.service';
 import { hashPassword, verifyPassword } from 'src/utils/hash';
 import { GoogleAuthService } from './google-auth.service';
+import { PasswordTokensService } from 'src/password-tokens/password-tokens.service';
 
 @Injectable()
 export class AuthService {
@@ -16,6 +17,7 @@ export class AuthService {
         private readonly db: DatabaseService,
         private readonly googleAuthService: GoogleAuthService,
         private readonly otpTokensService: OtpTokensService,
+        private readonly passwordTokensService: PasswordTokensService,
         private readonly mailService: MailService,
     ) { }
 
@@ -148,5 +150,56 @@ export class AuthService {
         await this.otpTokensService.deleteOtpToken(email, token);
 
         return { message: 'Email verified successfully' };
+    }
+
+    async resetPassword(email: string, token: string, newPassword: string) {
+        const isValid = await this.passwordTokensService.verifyToken(email, token);
+        if (!isValid) {
+            throw new BadRequestException('Invalid or expired password reset token');
+        }
+
+        const hashedPassword = await hashPassword(newPassword);
+        await this.db.user.updateMany({
+            where: { email },
+            data: { password: hashedPassword },
+        });
+
+        await this.passwordTokensService.markTokenAsUsed(email, token);
+
+        return { message: 'Password reset successfully' };
+    }
+
+    async requestPasswordReset(email: string) {
+        const user = await this.db.user.findUnique({ where: { email } });
+        if (!user) {
+            throw new BadRequestException('User with the given email does not exist');
+        }
+
+        const resetToken = await this.passwordTokensService.createToken(email);
+
+        await this.mailService.sendMail(
+            email,
+            'Password Reset Request',
+            `<p>Your password reset token is: ${resetToken.token}</p>`
+        );
+
+        return { message: 'Password reset token sent to email' };
+    }
+
+    async resendVerificationOtp(email: string) {
+        const user = await this.db.user.findUnique({ where: { email } });
+        if (!user) {
+            throw new BadRequestException('User with the given email does not exist');
+        }
+
+        const otpToken = await this.otpTokensService.createOtpToken(email);
+
+        await this.mailService.sendMail(
+            email,
+            'Resend Verify your email',
+            `<p>Your new verification code is: ${otpToken.token}</p>`
+        );
+
+        return { message: 'Verification OTP resent to email' };
     }
 }

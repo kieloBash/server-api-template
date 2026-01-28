@@ -17,6 +17,7 @@ export class MailService {
         };
 
         try {
+            this.logger.verbose(mailOptions)
             await sgMail.send(mailOptions);
             this.logger.log('Email sent to: ' + mailOptions.to);
         } catch (error) {

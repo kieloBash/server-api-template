@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MailModule } from './mail/mail.module';
 import { OtpTokensModule } from './otp-tokens/otp-tokens.module';
+import { PasswordTokensModule } from './password-tokens/password-tokens.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { OtpTokensModule } from './otp-tokens/otp-tokens.module';
     UsersModule,
     MailModule,
     OtpTokensModule,
+    PasswordTokensModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseService],

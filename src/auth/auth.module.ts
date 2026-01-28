@@ -4,6 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { DatabaseService } from 'src/lib/db.service';
 import { MailModule } from 'src/mail/mail.module';
 import { OtpTokensModule } from 'src/otp-tokens/otp-tokens.module';
+import { PasswordTokensModule } from 'src/password-tokens/password-tokens.module';
 import { JwtStrategy } from 'src/strategy/jwt.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -17,7 +18,8 @@ import { GoogleAuthService } from './google-auth.service';
             signOptions: { expiresIn: '7d' },
         }),
         OtpTokensModule,
-        MailModule
+        PasswordTokensModule,
+        MailModule,
     ],
     providers: [AuthService, DatabaseService, JwtStrategy, GoogleAuthService],
     controllers: [AuthController],
